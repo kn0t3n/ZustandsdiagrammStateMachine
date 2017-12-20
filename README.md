@@ -1,0 +1,2 @@
+# Zustandsdiagramm
+Zustandsdiagramm mit switch
