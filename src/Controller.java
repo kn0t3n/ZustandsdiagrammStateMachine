@@ -15,10 +15,11 @@ class Controller implements Initializable {
     @FXML
     private Pane pane;
 
-    private enum Zustand {
-        ROT, GRUEN, GELB, BLAU
+    private Farbe farbe;
+
+    public void setFarbe(Farbe farbe) {
+        this.farbe = farbe;
     }
-    private Zustand zustand;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -26,80 +27,25 @@ class Controller implements Initializable {
         // Eventhandler
         //---------------------------------------------    
         buttonA.setOnAction(event -> {
-            switch (zustand) {
-                case ROT:
-                    zustand = Zustand.GRUEN;
-                    break;
-                case GRUEN:
-                    zustand = Zustand.BLAU;
-                    break;
-                case GELB:
-                    System.exit(0);
-                    break;
-                case BLAU:
-                    zustand = Zustand.BLAU;
-                    break;
-            }
-            ausgabe();
+            farbe.buttonA();
         });
 
         buttonB.setOnAction(event -> {
-            switch (zustand) {
-                case ROT:
-                    zustand = Zustand.BLAU;
-                    break;
-                case GRUEN:
-                    zustand = Zustand.GRUEN;
-                    break;
-                case GELB:
-                    zustand = Zustand.BLAU;
-                    break;
-                case BLAU:
-                    zustand = Zustand.ROT;
-                    break;
-            }
-            ausgabe();
+            farbe.buttonB();
         });
 
         buttonC.setOnAction(event -> {
-            switch (zustand) {
-                case ROT:
-                    zustand = Zustand.ROT;
-                    break;
-                case GRUEN:
-                    zustand = Zustand.GELB;
-                    break;
-                case GELB:
-                    zustand = Zustand.ROT;
-                    break;
-                case BLAU:
-                    zustand = Zustand.ROT;
-                    break;
-            }
-            ausgabe();
+            farbe.buttonC();
         });
 
         //---------------------------------------------
         // Start
         //---------------------------------------------              
-        zustand = Zustand.ROT;
-        ausgabe();
+        setFarbe(new Rot(this));
     }
 
-    private void ausgabe() {
-        switch (zustand) {
-            case ROT:
-                pane.setStyle("-fx-background-color: red");
-                break;
-            case GRUEN:
-                pane.setStyle("-fx-background-color: green");
-                break;
-            case GELB:
-                pane.setStyle("-fx-background-color: yellow");
-                break;
-            case BLAU:
-                pane.setStyle("-fx-background-color: blue");
-                break;
-        }
+    public void setHintergrundfarbe(String hintergrundfarbe) {
+        pane.setStyle("-fx-background-color: " + hintergrundfarbe);
     }
+
 }
